@@ -8,9 +8,9 @@
     "start": "nodemon --inspect src/index.js",
     "watch": "node-sass --watch src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install~"
+    "prepare": "husky install"
   },
-  "repository": {
+          "repository": {
     "type": "git",
     "url": "git+https://github.com/Nguyen-Van-Thuan/Node-Express.git"
   },

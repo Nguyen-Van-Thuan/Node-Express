@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(morgan('combined'))
 
 // Teamplate engine
-                         app.engine(
+app.engine(
   'hbs',
   engine({
     extname: '.hbs',
