@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
-          "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/Nguyen-Van-Thuan/Node-Express.git"
   },
