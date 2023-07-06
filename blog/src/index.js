@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(morgan('combined'))
 
 // Teamplate engine
-app.engine(
+                         app.engine(
   'hbs',
   engine({
     extname: '.hbs',
@@ -24,7 +24,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views')); //Set Views
 
 // Routing
-                route(app);
+route(app);
 
 // app.get('/', (req, res) => {
 //   res.render('home');
