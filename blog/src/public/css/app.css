@@ -1,0 +1,9 @@
+.card-course-item {
+  margin-bottom: 25px; }
+
+.card-course-item img {
+  height: 250px;
+  object-fit: cover; }
+
+.card-course-item a {
+  text-decoration: none; }
