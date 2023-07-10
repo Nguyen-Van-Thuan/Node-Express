@@ -14,12 +14,12 @@ class MeController {
 
   // [GET] /me/trash/coures
   trashCoures(req, res, next) {
+
     Course.findDeleted({})
       .then(courses => {
-
         // Loc ra danh sach ban ghi co truong delete
         const filteredCourses = courses.filter(course => course.deleted);
-        
+
         // Render danh sách filteredCourses
         res.render('me/trash-courses', {
           courses: mutipleMongooseToObject(filteredCourses),
@@ -27,8 +27,6 @@ class MeController {
       })
       .catch(next);
   }
-
-
 }
 
 module.exports = new MeController();
