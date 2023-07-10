@@ -1,8 +1,8 @@
 <div class="mt-4">
 
   <div>
-    <h3>Khoá học của tôi</h3>
-    <a href="/me/trash/coures">Thùng rác</a>
+    <a href="/me/stored/coures">Danh sách khóa học</a>
+    <h3>Khoá học đã xóa</h3>
   </div>
 
   <table class="table mt-4">
@@ -23,21 +23,20 @@
           <td>{{this.level}}</td>
           <td>{{this.createdAt}}</td>
           <td>
-            <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-            <a
-              href=""
-              class="btn btn-link"
+            <button class="btn btn-success btn-restore" data-id="{{this._id}}">Khôi Phục</button>
+            <button
+              class="mx-2 btn btn-danger"
               data-bs-whatever="{{this._id}}"
               data-bs-toggle="modal"
               data-bs-target="#delete-course-modal"
-            >Xóa</a>
+            >Xóa Vĩnh Viễn</button>
           </td>
         </tr>
       {{else}}
         <tr>
           <td colspan="5" class="text-center">
-            Bạn chưa đăng khóa học nào.
-            <a href="/courses/create">Đăng khóa học.</a>
+            Thùng rác trống.
+            <a href="/me/stored/coures">Danh sách khóa học.</a>
           </td>
         </tr>
       {{/each}}
@@ -59,11 +58,11 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p>Bạn chắc chắn muốn xóa khóa học này ?</p>
+        <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa khóa học này ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" id="btn-delete-course">Xóa
-          bỏ</button>
+          Vĩnh Viễn</button>
         <button
           type="button"
           class="btn btn-secondary"
@@ -74,15 +73,25 @@
   </div>
 </div>
 
-{{! Delete hidden Form }}
-<form name="delete-course-form" method="post">
-
-</form>
+<form name="delete-course-form" method="POST"></form>
+<form name="restore-course-form" method="POST"></form>
 
 <script>
   const deleteCourseModal = document.getElementById('delete-course-modal');
   const btnDeleteCourse = document.querySelector('#btn-delete-course');
   const deleteForm = document.forms['delete-course-form'];
+  const restoreForm = document.forms['restore-course-form'];
+  const restoreBtn = document.querySelectorAll('.btn-restore');
+
+  restoreBtn.forEach((value)=>{
+    value.addEventListener('click', (e)=> {
+      e.preventDefault();
+      var courseId = value.dataset.id;
+
+      restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
+      restoreForm.submit();
+    })
+  })
 
   if (deleteCourseModal) {
       deleteCourseModal.addEventListener('show.bs.modal', event => {
@@ -90,7 +99,7 @@
           courseId = button.getAttribute('data-bs-whatever');
       });
       btnDeleteCourse.addEventListener('click', () => {
-          deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+          deleteForm.action = '/courses/' + courseId + '/force?_method=DELETE';
           deleteForm.submit();
       });
   }

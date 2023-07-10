@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// Thu viện tạo slug tự động
 const slug = require('mongoose-slug-updater');
 
 mongoose.plugin(slug);
@@ -15,5 +16,12 @@ const Course = new Schema({
 }, {
   timestamps: true,
 });
+
+// Thư viện thêm trường filed deletedAt
+const mongooseDelete = require('mongoose-delete');
+Course.plugin(mongooseDelete, {
+  overrideMethods: 'all',
+  deletedAt: true
+})
 
 module.exports = mongoose.model('Course', Course);
