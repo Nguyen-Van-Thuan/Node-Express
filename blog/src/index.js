@@ -12,12 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Sử dụng Express Override
-app.use(methodOverride('_method'))
-
+app.use(methodOverride('_method'));
 
 const route = require('./routes');
 // Import db
-const db = require('./config/db')
+const db = require('./config/db');
 
 // Connect to DB
 db.connect();
@@ -35,7 +34,7 @@ app.engine(
     extname: '.hbs',
     helpers: {
       sum: (a, b) => a + b,
-    }
+    },
   }),
 );
 app.set('view engine', 'hbs');

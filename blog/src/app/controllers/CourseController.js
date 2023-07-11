@@ -1,18 +1,17 @@
-const Course = require('../models/Course')
-const { mongooseToObject } = require('../../util/mongoose')
+const Course = require('../models/Course');
+const { mongooseToObject } = require('../../util/mongoose');
 
 class SiteController {
   // [GET] /courses/:slug
   show(req, res, next) {
-
     // get id detail
     Course.findOne({ slug: req.params.slug })
-      .then(course => {
+      .then((course) => {
         res.render('courses/show', {
-          course: mongooseToObject(course)
+          course: mongooseToObject(course),
         });
       })
-      .catch(next)
+      .catch(next);
   }
 
   // [GET] /courses/create
@@ -25,19 +24,20 @@ class SiteController {
     const formData = { ...req.body };
     formData.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
     const course = new Course(formData);
-    course.save()
+    course
+      .save()
       .then(() => res.redirect(`/me/stored/coures`))
-      .catch(error => {
-
-      })
+      .catch((error) => {});
   }
 
   // [GET] /courses/:id/edit
   edit(req, res, next) {
     Course.findById(req.params.id)
-      .then(course => res.render('courses/edit', {
-        course: mongooseToObject(course)
-      }))
+      .then((course) =>
+        res.render('courses/edit', {
+          course: mongooseToObject(course),
+        }),
+      )
       .catch(next);
   }
 
@@ -68,7 +68,6 @@ class SiteController {
       .then(() => res.redirect('back'))
       .catch(next);
   }
-
 }
 
 module.exports = new SiteController();
