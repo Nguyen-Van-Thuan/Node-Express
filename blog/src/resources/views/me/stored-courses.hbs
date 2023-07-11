@@ -24,7 +24,7 @@
         <option value="delete">Xóa</option>
       </select>
 
-      <button class="btn btn-primary btn-sm disabled">
+      <button class="btn btn-primary btn-sm check-all-submit-btn disabled">
         Thực hiện
       </button>
 
@@ -122,6 +122,7 @@
   const deleteForm = document.forms['delete-course-form'];
   const checkboxAll = document.querySelector('#checkbox-all');
   const courseItemCheckbox = document.querySelectorAll('input[name="courseIds[]"]') ;
+  const checkAllSubmitBtn = document.querySelector(".check-all-submit-btn");
 
   if (deleteCourseModal) {
     deleteCourseModal.addEventListener('show.bs.modal', event => {
@@ -147,6 +148,7 @@
         checkbox.checked = false;
       });
     }
+    renderCheckAllSubmitBtn();
   });
 
   //Bo checkbox cho tung item khi change
@@ -159,7 +161,21 @@
         checkboxAll.checked = false;
       }
 
+      //Goi lai ham checkbox
+      renderCheckAllSubmitBtn();
     });
   });
+
+  //Render laij check all submit button. Goi lai ham khi click check all hay click check box ben duoi
+  function renderCheckAllSubmitBtn() {
+    let checkedCount = document.querySelectorAll('input[name="courseIds[]"]:checked').length;
+    if (checkedCount > 0) {
+      checkAllSubmitBtn.classList.remove('disabled');
+    } else {
+      checkAllSubmitBtn.classList.add('disabled');
+    }
+  }
+
+console.log(checkAllSubmitBtn);
 
 </script>
